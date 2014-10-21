@@ -3,36 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryCalculator;
+
 
 namespace ConsoleCalculator
 {
-    static class Calculator
+    class Calculator
     {
-        static private Dictionary<char, int> arrOperators = new Dictionary<char,int>();
+        private Dictionary<char, IOperator> arrOperators = new Dictionary<char, IOperator>();
 
-        static Calculator()
+        public Calculator()
         {
-            arrOperators.Add('(',0);
-            arrOperators.Add(')', 1);
-            arrOperators.Add('+', 2);
-            arrOperators.Add('-', 2);
-            arrOperators.Add('*', 3);
-            arrOperators.Add('/', 3);
+            Operator_plus plus = new Operator_plus();
+            Operator_minus minus = new Operator_minus();
+            Operator_multiplication multiplication = new Operator_multiplication();
+            Operator_division division = new Operator_division();
+            AddOperator(plus);
+            AddOperator(minus);
+            AddOperator(multiplication);
+            AddOperator(division);
         }
 
-        static private int GetPriority(char symbol)
+        private int GetPriority(char symbol)
         {
-            foreach (var Op in arrOperators.Keys)
+            if (IsOperator(symbol))
             {
-                if (Op == symbol)
-                {
-                    return arrOperators[symbol];
-                }
+                return arrOperators[symbol].priorityOperator;
             }
             return -1;
         }
 
-        static private bool IsOperator(char symbol)
+        private bool IsOperator(char symbol)
         {
             if (arrOperators.ContainsKey(symbol))
             {
@@ -41,7 +42,7 @@ namespace ConsoleCalculator
             return false;
         }
 
-        static private bool IsNumber(char symbol)
+        private bool IsNumber(char symbol)
         {
             if (symbol >= '0' && symbol <= '9' || symbol == ',' || symbol == '.')
             {
@@ -50,40 +51,40 @@ namespace ConsoleCalculator
             return false;
         }
 
-        static private string GetExpression(string input)
+        private string GetExpression(string input)
         {
             string output = string.Empty;
             Stack<char> operStack = new Stack<char>();
 
             for (int i = 0; i < input.Length; i++)
             {
-                if (IsOperator(input[i]))
+                if (input[i] == '(')
                 {
-                    if (GetPriority(input[i]) == 0)
+                    operStack.Push(input[i]);
+                }
+                else if (input[i] == ')')
+                {
+                    if (operStack.Count == 0)
                     {
-                        operStack.Push(input[i]);
+                        return "error";
                     }
-                    else if (GetPriority(input[i]) == 1)
+                    char s = operStack.Pop();
+                    while (s != '(')
                     {
-                        char s = operStack.Pop();
-
-                        while (GetPriority(s) != 0)
+                        output += s.ToString() + ' ';
+                        s = operStack.Pop();
+                    }
+                }
+                else if (IsOperator(input[i]))
+                {
+                    if (operStack.Count > 0)
+                    {
+                        while (operStack.Count!=0 && GetPriority(input[i]) <= GetPriority(operStack.Peek()))
                         {
-                            output += s.ToString() + ' ';
-                            s = operStack.Pop();
+                            output += operStack.Pop().ToString() + " ";
                         }
                     }
-                    else
-                    {
-                        if (operStack.Count > 0)
-                        {
-                            while (operStack.Count!=0 && GetPriority(input[i]) <= GetPriority(operStack.Peek()))
-                            {
-                                output += operStack.Pop().ToString() + " ";
-                            }
-                        }
-                        operStack.Push(char.Parse(input[i].ToString()));
-                    }
+                    operStack.Push(char.Parse(input[i].ToString()));
                 }
                 else if (IsNumber(input[i]))
                 {
@@ -114,7 +115,7 @@ namespace ConsoleCalculator
             return output;
         }
 
-        static private double ColculateOnString(string input)
+        private double ColculateOnString(string input)
         {
             double result = 0;
             Stack<double> resStack = new Stack<double>();
@@ -137,20 +138,14 @@ namespace ConsoleCalculator
                 {
                     double a = resStack.Pop();
                     double b = resStack.Pop();
-                    switch (input[i])
-                    {
-                        case '+': result = b + a; break;
-                        case '-': result = b - a; break;
-                        case '*': result = b * a; break;
-                        case '/': result = b / a; break;
-                    }
+                    result = arrOperators[input[i]].Expression(b, a);
                     resStack.Push(result);
                 }
             }
             return resStack.Peek();
         }
 
-        static public string Calculation(string input)
+        public string Calculation(string input)
         {
             string output = GetExpression(input);
             if (output != "error")
@@ -159,6 +154,11 @@ namespace ConsoleCalculator
                 return result.ToString();
             }
             return "Invalid symbols in the mathematical expression";
+        }
+
+        public void AddOperator(IOperator oper)
+        {
+            arrOperators.Add(oper.nameOperator, oper);
         }
     }
 }
