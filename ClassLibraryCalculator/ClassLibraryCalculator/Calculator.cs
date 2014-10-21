@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ClassLibraryCalculator;
 
 
-namespace ConsoleCalculator
+namespace ClassLibraryCalculator
 {
-    class Calculator
+    public class Calculator
     {
         private Dictionary<char, IOperator> arrOperators = new Dictionary<char, IOperator>();
 
         public Calculator()
         {
-            Operator_plus plus = new Operator_plus();
-            Operator_minus minus = new Operator_minus();
-            Operator_multiplication multiplication = new Operator_multiplication();
-            Operator_division division = new Operator_division();
+            plusOperator plus = new plusOperator();
+            minusOperator minus = new minusOperator();
+            multiplicationOperator multiplication = new multiplicationOperator();
+            divisionOperator division = new divisionOperator();
             AddOperator(plus);
             AddOperator(minus);
             AddOperator(multiplication);

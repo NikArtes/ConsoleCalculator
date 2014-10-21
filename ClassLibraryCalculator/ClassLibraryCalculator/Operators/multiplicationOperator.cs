@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public class Operator_division : IOperator
+    public class multiplicationOperator : IOperator
     {
         public char nameOperator
         {
             get
-            {
-                return '/';
+            { 
+                return '*';
             }
         }
         public int priorityOperator
@@ -24,7 +24,7 @@ namespace ClassLibraryCalculator
         }
         public dynamic Expression(dynamic op1, dynamic op2)
         {
-            return op1 / op2;
+            return op1 * op2;
         }
     }
 }

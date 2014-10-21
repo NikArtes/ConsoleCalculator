@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public class Operator_plus : IOperator
+    public class minusOperator : IOperator
     {
         public char nameOperator
         {
             get
             { 
-                return '+';
+                return '-';
             }
         }
         public int priorityOperator
         {
-            get 
+            get
             {
                 return 2;
             }
         }
         public dynamic Expression(dynamic op1, dynamic op2)
         {
-            return op1 + op2;
+            return op1 - op2;
         }
     }
 }

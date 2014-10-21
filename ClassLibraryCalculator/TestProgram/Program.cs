@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryCalculator;
 
-namespace ConsoleCalculator
+namespace TestProgram
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Calculator calc = new Calculator();
+            Calculator calculator = new Calculator();
             Console.WriteLine("Add the mathematical expression");
-            Console.WriteLine(calc.Calculation(Console.ReadLine()));
+            Console.WriteLine(calculator.Calculation(Console.ReadLine()));
             Console.ReadKey();
+
         }
     }
 }
