@@ -1,5 +1,0 @@
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\bin\Release\ClassLibraryCalculator.dll
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\bin\Release\ClassLibraryCalculator.pdb
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\obj\Release\ClassLibraryCalculator.dll
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\obj\Release\ClassLibraryCalculator.pdb
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\obj\Release\ClassLibraryCalculator.csprojResolveAssemblyReference.cache

@@ -1,4 +1,0 @@
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\bin\Debug\ClassLibraryCalculator.dll
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\bin\Debug\ClassLibraryCalculator.pdb
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.dll
-C:\Users\Nik\Documents\Visual Studio 2012\Projects\ClassLibraryCalculator\ClassLibraryCalculator\obj\Debug\ClassLibraryCalculator.pdb
