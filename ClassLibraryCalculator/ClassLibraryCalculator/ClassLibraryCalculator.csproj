@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="GeneralCalculatorRunner.cs" />
+    <Compile Include="ColculationWithRPN.cs" />
+    <Compile Include="IGeneralCalculator.cs" />
     <Compile Include="Operators\divisionOperator.cs" />
     <Compile Include="interfaceOperator.cs" />
     <Compile Include="Operators\minusOperator.cs" />
