@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public interface IOperator : ITemp
+    public interface INumb : ITemp
     {
         string name
         {
             get;
         }
-        int priority
+        dynamic value
         {
             get;
+            set;
         }
-        INumb Expression(INumb op1, INumb op2);
     }
 }

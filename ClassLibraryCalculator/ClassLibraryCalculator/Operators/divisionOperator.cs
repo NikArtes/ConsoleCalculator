@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClassLibraryCalculator.NumberClass;
 
 namespace ClassLibraryCalculator
 {
     public class divisionOperator : IOperator
     {
-        public char nameOperator
+        public string name
         {
             get
             {
-                return '/';
+                return "/";
             }
         }
-        public int priorityOperator
+        public int priority
         {
             get
             {
                 return 3;
             }
         }
-        public dynamic Expression(dynamic op1, dynamic op2)
+        public INumb Expression(INumb op1, INumb op2)
         {
-            return op1 / op2;
+            Number opRes = new Number();
+            opRes.value = op1.value / op2.value;
+            return opRes;
         }
     }
 }

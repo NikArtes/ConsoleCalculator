@@ -6,37 +6,24 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    class ColculationWithRPN : IGeneralCalculator
+    public class ColculationWithRPN : IGeneralCalculator, IOperationWithInputStr
     {
-        private Dictionary<char, IOperator> arrOperators = new Dictionary<char,IOperator>();
+        private Dictionary<string, IOperator> arrOperators = new Dictionary<string,IOperator>();
 
         public ColculationWithRPN()
         {
-            plusOperator plus = new plusOperator();
-            minusOperator minus = new minusOperator();
-            multiplicationOperator multiplication = new multiplicationOperator();
-            divisionOperator division = new divisionOperator();
-            AddOperator(plus);
-            AddOperator(minus);
-            AddOperator(multiplication);
-            AddOperator(division);
         }
 
-        public string Calculation(string input)
-        {
-            return (new GeneralCalculatorRunner(new ColculationWithRPN())).Calculation(input);
-        }
-
-        public int GetPriority(char symbol)
+        private int GetPriority(string symbol)
         {
             if (IsOperator(symbol))
             {
-                return arrOperators[symbol].priorityOperator;
+                return arrOperators[symbol].priority;
             }
             return -1;
         }
 
-        public bool IsOperator(char symbol)
+        private bool IsOperator(string symbol)
         {
             if (arrOperators.ContainsKey(symbol))
             {
@@ -45,7 +32,7 @@ namespace ClassLibraryCalculator
             return false;
         }
 
-        public bool IsNumber(char symbol)
+        private bool IsNumber(char symbol)
         {
             if (symbol >= '0' && symbol <= '9' || symbol == ',' || symbol == '.')
             {
@@ -54,11 +41,12 @@ namespace ClassLibraryCalculator
             return false;
         }
 
-        public string GetExpression(string input)
+        public IEnumerable<ITemp> GetExpression(string input)
         {
-            string output = string.Empty;
             Stack<char> operStack = new Stack<char>();
+            List<ITemp> outp = new List<ITemp>();
 
+            
             for (int i = 0; i < input.Length; i++)
             {
                 if (input[i] == '(')
@@ -69,88 +57,90 @@ namespace ClassLibraryCalculator
                 {
                     if (operStack.Count == 0)
                     {
-                        return "error";
+                        throw new Exception("improper placement of parentheses");
                     }
                     char s = operStack.Pop();
                     while (s != '(')
                     {
-                        output += s.ToString() + ' ';
+                        outp.Add(arrOperators[s.ToString()]);
                         s = operStack.Pop();
                     }
                 }
-                else if (IsOperator(input[i]))
+                else if (IsOperator(input[i].ToString()))
                 {
                     if (operStack.Count > 0)
                     {
-                        while (operStack.Count != 0 && GetPriority(input[i]) <= GetPriority(operStack.Peek()))
+                        while (operStack.Count != 0 && GetPriority(input[i].ToString()) <= GetPriority(operStack.Peek().ToString()))
                         {
-                            output += operStack.Pop().ToString() + " ";
+                            outp.Add(arrOperators[operStack.Pop().ToString()]);
                         }
                     }
                     operStack.Push(char.Parse(input[i].ToString()));
                 }
                 else if (IsNumber(input[i]))
                 {
+                    string buf = string.Empty;
                     while (IsNumber(input[i]))
                     {
                         if (input[i] == '.')
                         {
-                            output += ',';
+                            buf += ',';
                             i++;
                             continue;
                         }
-                        output += input[i];
-                        i++;
-                        if (i == input.Length)
-                            break;
-                    }
-                    output += " ";
-                    i--;
-                }
-                else
-                {
-                    return "error";
-                }
-            }
-            while (operStack.Count > 0)
-                output += operStack.Pop() + " ";
-
-            return output;
-        }
-
-        public string ColculateOnString(string input)
-        {
-            double result = 0;
-            Stack<double> resStack = new Stack<double>();
-            for (int i = 0; i < input.Length; i++)
-            {
-                if (Char.IsDigit(input[i]))
-                {
-                    string buf = string.Empty;
-                    while (input[i] != ' ' && !IsOperator(input[i]))
-                    {
                         buf += input[i];
                         i++;
                         if (i == input.Length)
                             break;
                     }
-                    resStack.Push(double.Parse(buf));
+                    NumberClass.Number numb = new NumberClass.Number();
+                    numb.value = double.Parse(buf);
+                    outp.Add(numb);
                     i--;
                 }
-                else if (IsOperator(input[i]))
+                else
                 {
-                    double a = resStack.Pop();
-                    double b = resStack.Pop();
-                    result = arrOperators[input[i]].Expression(b, a);
-                    resStack.Push(result);
+                    throw new Exception("Invalid symbols in the mathematical expression");
                 }
             }
-            return resStack.Peek().ToString();
+            while (operStack.Count > 0)
+                outp.Add(arrOperators[operStack.Pop().ToString()]);
+
+            return outp;
+            
+            
+            
         }
 
+        public INumb ColculateOnString(IEnumerable<ITemp> input)
+        {
+            Stack<ITemp> resStack = new Stack<ITemp>();
+            foreach (ITemp temp in input)
+            {
+                if (temp is INumb)
+                {
+                    resStack.Push(temp);
+                }
+                else if (temp is IOperator)
+                {
+                    INumb a = resStack.Pop() as INumb;
+                    INumb b = resStack.Pop() as INumb;
+                    IOperator t = temp as IOperator;
+                    INumb res = t.Expression(b, a);
+                    resStack.Push(res);
+                }
+            }
+            return resStack.Peek() as INumb;
+        }
+        public INumb Calculation(string input)
+        {
+            IEnumerable<ITemp> output = GetExpression(input);
+            return ColculateOnString(output);
+            
+        }
         public void AddOperator(IOperator oper)
         {
-            arrOperators.Add(oper.nameOperator, oper);
+            arrOperators.Add(oper.name, oper);
         }
     }
 }

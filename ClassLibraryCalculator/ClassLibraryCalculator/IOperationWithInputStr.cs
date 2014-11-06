@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public interface IGeneralCalculator
+    interface IOperationWithInputStr
     {
-        INumb Calculation(string input);
-        void AddOperator(IOperator oper);
+        IEnumerable<ITemp> GetExpression(string input);
+        INumb ColculateOnString(IEnumerable<ITemp> input);
     }
 }
