@@ -9,7 +9,7 @@ namespace ClassLibraryCalculator
 {
     public class minusOperator : IOperator
     {
-        public string name
+        public string Name
         {
             get
             { 
@@ -23,10 +23,10 @@ namespace ClassLibraryCalculator
                 return 2;
             }
         }
-        public INumb Expression(INumb op1, INumb op2)
+        public INumber Expression(INumber op1, INumber op2)
         {
             Number opRes = new Number();
-            opRes.value = op1.value - op2.value;
+            opRes.Value = op1.Value - op2.Value;
             return opRes;
         }
     }

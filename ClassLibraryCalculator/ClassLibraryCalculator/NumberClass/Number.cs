@@ -6,26 +6,19 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator.NumberClass
 {
-    class Number : INumb
+    class Number : INumber
     {
-        private dynamic numb;
-        public string name
+        public string Name
         {
             get
             {
-                return numb.ToString();
+                return Value.ToString();
             }
         }
-        public dynamic value
+        public dynamic Value
         {
-            get
-            {
-                return numb;
-            }
-            set 
-            {
-                numb = value;
-            }
+            get;
+            set;
         }
     }
 }

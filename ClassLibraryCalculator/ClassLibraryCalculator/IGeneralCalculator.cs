@@ -8,7 +8,7 @@ namespace ClassLibraryCalculator
 {
     public interface IGeneralCalculator
     {
-        INumb Calculation(string input);
-        void AddOperator(IOperator oper);
+        INumber Calculation(string input);
+        IGeneralCalculator AddOperator(IOperator oper);
     }
 }

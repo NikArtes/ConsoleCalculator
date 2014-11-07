@@ -8,7 +8,7 @@ namespace ClassLibraryCalculator
 {
     interface IOperationWithInputStr
     {
-        IEnumerable<ITemp> GetExpression(string input);
-        INumb ColculateOnString(IEnumerable<ITemp> input);
+        IEnumerable<ITerm> GetExpression(string input);
+        INumber CalculateOnString(IEnumerable<ITerm> input);
     }
 }

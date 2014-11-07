@@ -39,14 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColculationWithRPN.cs" />
+    <Compile Include="CalculationWithRPN.cs" />
     <Compile Include="IGeneralCalculator.cs" />
-    <Compile Include="interfaceNumb.cs" />
-    <Compile Include="interfaceTemp.cs" />
+    <Compile Include="INumber.cs" />
+    <Compile Include="ITerm.cs" />
     <Compile Include="IOperationWithInputStr.cs" />
     <Compile Include="NumberClass\Number.cs" />
     <Compile Include="Operators\divisionOperator.cs" />
-    <Compile Include="interfaceOperator.cs" />
+    <Compile Include="IOperator.cs" />
     <Compile Include="Operators\minusOperator.cs" />
     <Compile Include="Operators\multiplicationOperator.cs" />
     <Compile Include="Operators\plusOperator.cs" />

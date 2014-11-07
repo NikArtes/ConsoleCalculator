@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public class ColculationWithRPN : IGeneralCalculator, IOperationWithInputStr
+    public class CalculationWithRPN : IGeneralCalculator, IOperationWithInputStr
     {
-        private Dictionary<string, IOperator> arrOperators = new Dictionary<string,IOperator>();
-
-        public ColculationWithRPN()
-        {
-        }
+        private readonly Dictionary<string, IOperator> arrOperators = new Dictionary<string,IOperator>();
 
         private int GetPriority(string symbol)
         {
@@ -41,10 +37,10 @@ namespace ClassLibraryCalculator
             return false;
         }
 
-        public IEnumerable<ITemp> GetExpression(string input)
+        public IEnumerable<ITerm> GetExpression(string input)
         {
             Stack<char> operStack = new Stack<char>();
-            List<ITemp> outp = new List<ITemp>();
+            List<ITerm> outp = new List<ITerm>();
 
             
             for (int i = 0; i < input.Length; i++)
@@ -94,7 +90,7 @@ namespace ClassLibraryCalculator
                             break;
                     }
                     NumberClass.Number numb = new NumberClass.Number();
-                    numb.value = double.Parse(buf);
+                    numb.Value = double.Parse(buf);
                     outp.Add(numb);
                     i--;
                 }
@@ -106,41 +102,39 @@ namespace ClassLibraryCalculator
             while (operStack.Count > 0)
                 outp.Add(arrOperators[operStack.Pop().ToString()]);
 
-            return outp;
-            
-            
-            
+            return outp;  
         }
 
-        public INumb ColculateOnString(IEnumerable<ITemp> input)
+        public INumber CalculateOnString(IEnumerable<ITerm> input)
         {
-            Stack<ITemp> resStack = new Stack<ITemp>();
-            foreach (ITemp temp in input)
+            Stack<ITerm> resStack = new Stack<ITerm>();
+            foreach (ITerm term in input)
             {
-                if (temp is INumb)
+                if (term is INumber)
                 {
-                    resStack.Push(temp);
+                    resStack.Push(term);
                 }
-                else if (temp is IOperator)
+                else if (term is IOperator)
                 {
-                    INumb a = resStack.Pop() as INumb;
-                    INumb b = resStack.Pop() as INumb;
-                    IOperator t = temp as IOperator;
-                    INumb res = t.Expression(b, a);
+                    INumber a = resStack.Pop() as INumber;
+                    INumber b = resStack.Pop() as INumber;
+                    IOperator t = term as IOperator;
+                    INumber res = t.Expression(b, a);
                     resStack.Push(res);
                 }
             }
-            return resStack.Peek() as INumb;
+            return resStack.Peek() as INumber;
         }
-        public INumb Calculation(string input)
+        public INumber Calculation(string input)
         {
-            IEnumerable<ITemp> output = GetExpression(input);
-            return ColculateOnString(output);
+            IEnumerable<ITerm> output = GetExpression(input);
+            return CalculateOnString(output);
             
         }
-        public void AddOperator(IOperator oper)
+        public IGeneralCalculator AddOperator(IOperator oper)
         {
-            arrOperators.Add(oper.name, oper);
+            arrOperators.Add(oper.Name, oper);
+            return this;
         }
     }
 }

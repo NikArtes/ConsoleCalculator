@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public interface ITemp
+    public interface IOperator : ITerm
     {
-        string name
+        string Name
         {
             get;
         }
+        int priority
+        {
+            get;
+        }
+        INumber Expression(INumber op1, INumber op2);
     }
 }

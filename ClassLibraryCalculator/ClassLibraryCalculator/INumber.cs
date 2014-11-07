@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator
 {
-    public interface INumb : ITemp
+    public interface INumber : ITerm
     {
-        string name
+        string Name
         {
             get;
         }
-        dynamic value
+        dynamic Value
         {
             get;
             set;

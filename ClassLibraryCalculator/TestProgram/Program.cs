@@ -17,13 +17,10 @@ namespace TestProgram
                 minusOperator minus = new minusOperator();
                 multiplicationOperator multiplication = new multiplicationOperator();
                 divisionOperator division = new divisionOperator();
-                ColculationWithRPN calculator = new ColculationWithRPN();
-                calculator.AddOperator(plus);
-                calculator.AddOperator(minus);
-                calculator.AddOperator(division);
-                calculator.AddOperator(multiplication);
+                CalculationWithRPN calculator = new CalculationWithRPN();
+                calculator.AddOperator(plus).AddOperator(minus).AddOperator(division).AddOperator(multiplication);
                 Console.WriteLine("Add the mathematical expression");
-                Console.WriteLine(calculator.Calculation(Console.ReadLine()).name);
+                Console.WriteLine(calculator.Calculation(Console.ReadLine()).Name);
                 Console.ReadKey();
             }
             catch (Exception e)
