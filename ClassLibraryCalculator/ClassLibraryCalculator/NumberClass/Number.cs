@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryCalculator.NumberClass
 {
-    class Number : INumber
+    public class Number : INumber
     {
         public string Name
         {

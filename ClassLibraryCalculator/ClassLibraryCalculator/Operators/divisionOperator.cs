@@ -26,6 +26,10 @@ namespace ClassLibraryCalculator
         public INumber Expression(INumber op1, INumber op2)
         {
             Number opRes = new Number();
+            if (op2.Value == 0)
+            {
+                throw new Exception("you can not divide by zero");
+            }
             opRes.Value = op1.Value / op2.Value;
             return opRes;
         }
