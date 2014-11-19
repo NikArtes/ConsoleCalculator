@@ -8,11 +8,11 @@ namespace ClassLibraryCalculator
 {
     public interface IOperator : ITerm
     {
-        string Name
+        new string Name
         {
             get;
         }
-        int priority
+        int Priority
         {
             get;
         }

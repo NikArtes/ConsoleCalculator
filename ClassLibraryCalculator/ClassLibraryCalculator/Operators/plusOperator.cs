@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ClassLibraryCalculator.NumberClass;
+﻿using ClassLibraryCalculator.NumberClass;
 
 namespace ClassLibraryCalculator
 {
-    public class plusOperator : IOperator
+    public class PlusOperator : IOperator
     {
         public string Name
         {
@@ -16,7 +11,7 @@ namespace ClassLibraryCalculator
                 return "+";
             }
         }
-        public int priority
+        public int Priority
         {
             get 
             {
@@ -25,8 +20,7 @@ namespace ClassLibraryCalculator
         }
         public INumber Expression(INumber op1, INumber op2)
         {
-            Number opRes = new Number();
-            opRes.Value = op1.Value + op2.Value;
+            var opRes = new Number {Value = op1.Value + op2.Value};
             return opRes;
         }
     }

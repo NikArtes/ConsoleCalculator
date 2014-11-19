@@ -45,11 +45,11 @@
     <Compile Include="ITerm.cs" />
     <Compile Include="IOperationWithInputStr.cs" />
     <Compile Include="NumberClass\Number.cs" />
-    <Compile Include="Operators\divisionOperator.cs" />
+    <Compile Include="Operators\DivisionOperator.cs" />
     <Compile Include="IOperator.cs" />
-    <Compile Include="Operators\minusOperator.cs" />
-    <Compile Include="Operators\multiplicationOperator.cs" />
-    <Compile Include="Operators\plusOperator.cs" />
+    <Compile Include="Operators\MinusOperator.cs" />
+    <Compile Include="Operators\MultiplicationOperator.cs" />
+    <Compile Include="Operators\PlusOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

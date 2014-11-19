@@ -15,6 +15,7 @@ namespace ClassLibraryCalculator.NumberClass
                 return Value.ToString();
             }
         }
+
         public dynamic Value
         {
             get;

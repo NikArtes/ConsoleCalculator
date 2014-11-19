@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClassLibraryCalculator;
 
 namespace TestProgram
@@ -13,12 +9,8 @@ namespace TestProgram
         {
             try
             {
-                plusOperator plus = new plusOperator();
-                minusOperator minus = new minusOperator();
-                multiplicationOperator multiplication = new multiplicationOperator();
-                divisionOperator division = new divisionOperator();
-                CalculationWithRPN calculator = new CalculationWithRPN();
-                calculator.AddOperator(plus).AddOperator(minus).AddOperator(division).AddOperator(multiplication);
+                var calculator = new CalculationWithRPN();
+                calculator.AddOperator(new PlusOperator()).AddOperator(new MinusOperator()).AddOperator(new DivisionOperator()).AddOperator(new MultiplicationOperator());
                 Console.WriteLine("Add the mathematical expression");
                 Console.WriteLine(calculator.Calculation(Console.ReadLine()).Name);
                 Console.ReadKey();

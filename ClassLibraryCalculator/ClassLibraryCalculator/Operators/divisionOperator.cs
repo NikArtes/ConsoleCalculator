@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClassLibraryCalculator.NumberClass;
 
 namespace ClassLibraryCalculator
 {
-    public class divisionOperator : IOperator
+    public class DivisionOperator : IOperator
     {
         public string Name
         {
@@ -16,7 +12,8 @@ namespace ClassLibraryCalculator
                 return "/";
             }
         }
-        public int priority
+
+        public int Priority
         {
             get
             {
@@ -25,7 +22,7 @@ namespace ClassLibraryCalculator
         }
         public INumber Expression(INumber op1, INumber op2)
         {
-            Number opRes = new Number();
+            var opRes = new Number();
             if (op2.Value == 0)
             {
                 throw new Exception("you can not divide by zero");

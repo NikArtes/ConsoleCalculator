@@ -8,7 +8,7 @@ namespace ClassLibraryCalculator
 {
     public interface INumber : ITerm
     {
-        string Name
+        new string Name
         {
             get;
         }
